@@ -67,7 +67,7 @@ Copy-Item -Recurse .agents/skills/cooking-with-nn-bs1700 "$HOME/.claude/skills/"
 
 提示中最好包含生鮮／冷藏／冷凍狀態、重量、數量、最厚處厚度、目標口感與手邊配件；資訊不足時，skill 會明列假設與不同狀態的選項。
 
-想直接開始產生料理流程，或把新食譜回存到 skill 並在實際烹煮後標為實測，請閱讀[開始使用指南](getting-start.md)。
+只想用食譜名稱與主要食材取得料理流程，請閱讀[入門使用者指南](basic-user-guide.md)；需要完整指定料理條件、把新食譜回存到 skill，或在實際烹煮後標為實測，請閱讀[進階使用者指南](advanced-user-guide.md)。
 
 ## Claude Cowork
 

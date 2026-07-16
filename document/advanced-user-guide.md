@@ -1,6 +1,8 @@
-# 開始使用 NN-BS1700 料理 skill
+# NN-BS1700 進階使用者指南
 
-這份指南提供四組可直接修改的 prompt：先產生料理流程，再把流程存成食譜、加入 skill，實際煮過後再升級為實測食譜。這樣下次詢問相同或相近食材時，agent 可以先找到你的記錄，不必每次從通用資料重新推算。
+這份指南專為進階使用者提供專業且完整的提示詞範本。四組可直接修改的 prompt 會依序產生料理流程、把流程存成食譜、加入 skill，並在實際煮過後升級為實測食譜。這樣下次詢問相同或相近食材時，agent 可以先找到你的記錄，不必每次從通用資料重新推算。
+
+如果只想提供食譜名稱與主要食材，讓 agent 補足假設或列出不同狀態的選項，請參考[入門使用者指南](basic-user-guide.md)即可。本進階指南適合需要完整指定狀態、份量、厚度、模式、配件、來源裁決與檔案修改範圍的使用者。
 
 料理判斷的核心是 `cooking-with-nn-bs1700`；範本也會叫用 `write-like-human` 來整理文字，並在修改 skill 時叫用 skill creator。`write-like-human` 與 skill creator 都是輔助工具，沒有安裝時仍可執行本指南，但要保留 prompt 內的來源標示、檔案範圍與驗證要求。
 
@@ -10,7 +12,7 @@
 
 ## 先確認平台的 skill 名稱與叫用方式
 
-本頁 prompt 範本的第一行採用 Codex 語法。`$skill-name` 是 Codex 用來明確選取 skill 的寫法，不是 Agent Skills 共通規格；Claude、Gemini 與 GitHub Copilot 不應直接照抄 `$`。如果不確定目前介面支援哪種符號，最穩妥的跨平台寫法是直接用自然語言，例如：「請使用 cooking-with-nn-bs1700 skill」。
+本進階指南的 prompt 範本第一行採用 Codex 語法。`$skill-name` 是 Codex 用來明確選取 skill 的寫法，不是 Agent Skills 共通規格；Claude、Gemini 與 GitHub Copilot 不應直接照抄 `$`。如果不確定目前介面支援哪種符號，最穩妥的跨平台寫法是直接用自然語言，例如：「請使用 cooking-with-nn-bs1700 skill」。
 
 本頁寫的 `$skill-creator` 也特別指 Codex 提供的 `skill-creator` system skill。其他 agent 可能使用同名但內容不同的 skill，也可能使用完全不同的名稱。以下是依 2026-07-16 官方文件整理的對照：
 

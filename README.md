@@ -23,7 +23,7 @@
 | Gemini CLI／Google AI agent | [Gemini 使用指南](document/GEMINI.md) |
 | GitHub Copilot | [Copilot 使用指南](document/COPILOT.md) |
 
-想直接開始產生料理流程，或把新食譜回存到 skill 並在實際烹煮後標為實測，請閱讀[開始使用指南](document/getting-start.md)。
+只想用食譜名稱與主要食材取得料理流程，請閱讀[入門使用者指南](document/basic-user-guide.md)；需要完整指定料理條件、把新食譜回存到 skill，或在實際烹煮後標為實測，請閱讀[進階使用者指南](document/advanced-user-guide.md)。
 
 ## 官方參考資料
 
