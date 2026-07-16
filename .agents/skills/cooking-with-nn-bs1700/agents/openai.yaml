@@ -1,0 +1,4 @@
+interface:
+  display_name: "Panasonic NN-BS1700 料理指南"
+  short_description: "查詢 NN-BS1700 蒸、烤、微波料理的最佳步驟與參數"
+  default_prompt: "使用 $cooking-with-nn-bs1700，告訴我指定食材在目前保存狀態與厚度下的最佳料理流程。"
