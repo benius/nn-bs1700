@@ -1,0 +1,36 @@
+{
+  "title": "番茄海鮮速拌細麵｜兩人份實測食譜・收乾版",
+  "version": "2.0",
+  "generated_at": "2026-07-31",
+  "language": "zh-Hant",
+  "source_recipe": "../../.agents/skills/cooking-with-nn-bs1700/references/recipe/1203-番茄海鮮速拌細麵.md",
+  "texture_reference_pdf": "/Users/masonhsieh/Downloads/收乾後的成品.pdf",
+  "outputs": [
+    {
+      "format": "HTML",
+      "path": "番茄海鮮速拌細麵-A4-收乾版.html",
+      "editable": true,
+      "page_size": "A4 portrait"
+    },
+    {
+      "format": "PNG",
+      "path": "番茄海鮮速拌細麵-A4-收乾版.png",
+      "width_px": 2481,
+      "height_px": 3509
+    },
+    {
+      "format": "PDF",
+      "path": "../pdf/番茄海鮮速拌細麵-A4-收乾版.pdf",
+      "page_size": "A4 portrait",
+      "page_count": 1
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets/番茄海鮮速拌細麵-主視覺-收乾版.png",
+      "role": "revised reduced-sauce hero image",
+      "width_px": 1024,
+      "height_px": 1536
+    }
+  ]
+}
