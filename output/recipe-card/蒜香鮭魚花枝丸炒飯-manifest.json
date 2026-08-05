@@ -1,0 +1,25 @@
+{
+  "recipe": "蒜香鮭魚花枝丸炒飯",
+  "locale": "zh-TW",
+  "servings": 2,
+  "outputs": [
+    {
+      "file": "蒜香鮭魚花枝丸炒飯.png",
+      "format": "PNG",
+      "dimensions_px": [2480, 3508],
+      "resolution_dpi": 300
+    },
+    {
+      "file": "蒜香鮭魚花枝丸炒飯.pdf",
+      "format": "PDF",
+      "page_size": "A4 portrait",
+      "pages": 1
+    }
+  ],
+  "provenance": {
+    "recipe_copy": "Based on the approved NN-BS1700 and RB-2232H two-person recipe in this Codex task.",
+    "food_visual": "Generated with the built-in Codex ImageGen tool; no text, logos, packaging, or watermark were included in the generated visual.",
+    "text_composition": "All Traditional Chinese recipe copy, temperatures, times, fire levels, and safety endpoints were composed deterministically outside the generated image.",
+    "design": "Warm ivory editorial recipe card with salmon coral, deep teal, sage, and gold accents."
+  }
+}
