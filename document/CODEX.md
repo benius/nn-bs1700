@@ -1,16 +1,10 @@
-# 在 Codex 安裝與使用 NN-BS1700 skill
+# 在 Codex 安裝與使用 CulinaForge Skills
 
-本指南適用於 ChatGPT 桌面版中的 Codex、Codex CLI 與 Codex IDE extension。skill 不需要 API key、MCP server 或額外套件。
+本指南適用於 ChatGPT 桌面版中的 Codex、Codex CLI 與 Codex IDE extension。CulinaForge 的烹調設備 Skills 位於 `.agents/skills/`；每個 Skill 只包含一台設備，產生食譜時可以同時叫用多個 Skill。
 
 ## 平台設定檔
 
-`agents/openai.yaml` 是 OpenAI 產品專用的選用設定，不屬於跨平台 Agent Skills 核心規格。本專案只設定三個介面欄位：
-
-- `display_name`：顯示為「Panasonic NN-BS1700 料理指南」。
-- `short_description`：顯示簡短的蒸、烤、微波料理說明。
-- `default_prompt`：插入明確叫用 `$cooking-with-nn-bs1700` 的範例提示。
-
-本檔沒有設定圖示、品牌色、工具依賴或叫用政策；未設定 `allow_implicit_invocation` 時使用預設值 `true`，所以 Codex 仍可依 `SKILL.md` 的 `description` 自動選用 skill。Claude、Gemini 與 Copilot 不讀取此檔。
+每個 Skill 的 `agents/openai.yaml` 提供 Codex 顯示名稱、簡短說明與預設提示。它是 OpenAI 產品的選用介面資訊；跨平台核心仍是 `SKILL.md` 的 `name`、`description` 與內文。
 
 ## 安裝
 
@@ -21,19 +15,20 @@ git clone https://github.com/benius/nn-bs1700.git
 cd nn-bs1700
 ```
 
-### 專案安裝（建議）
+### 專案安裝
 
-Repository 已把完整 skill 放在 `.agents/skills/cooking-with-nn-bs1700`。從 repository 根目錄啟動 Codex 即可；不必再複製檔案。
+從 repository 根目錄啟動 Codex，即可使用 `.agents/skills/` 內所有設備 Skills，不必複製檔案。
 
 ### 個人安裝
 
-若希望在所有專案使用，從 repository 根目錄複製到個人 skill 目錄。請擇一安裝範圍，避免同名的專案版與個人版同時出現在選單。
+若只想在其他專案使用指定設備，將該設備的完整 Skill 目錄複製到個人目錄。`SKILL.md`、`agents/` 與 `references/` 必須保持在一起。
 
 macOS／Linux：
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
 cp -R .agents/skills/cooking-with-nn-bs1700 "$HOME/.agents/skills/"
+cp -R .agents/skills/cooking-with-rb-2232h "$HOME/.agents/skills/"
 ```
 
 Windows PowerShell：
@@ -41,35 +36,37 @@ Windows PowerShell：
 ```powershell
 New-Item -ItemType Directory -Force "$HOME/.agents/skills" | Out-Null
 Copy-Item -Recurse .agents/skills/cooking-with-nn-bs1700 "$HOME/.agents/skills/"
+Copy-Item -Recurse .agents/skills/cooking-with-rb-2232h "$HOME/.agents/skills/"
 ```
 
-## 設定與確認
+請擇一安裝範圍，避免同名的專案版與個人版同時出現。
 
-1. 在 Codex CLI 或 IDE 執行 `/skills`，或輸入 `$` 後搜尋 `cooking-with-nn-bs1700`。
-2. ChatGPT 桌面版可從側邊欄的 Skills 查看。`agents/openai.yaml` 會提供顯示名稱、簡短說明與預設提示。
-3. 新安裝後若沒有出現，重新啟動 Codex。
+## 確認與使用
 
-## 使用
-
-明確指定 skill：
+執行 `/skills` 或輸入 `$` 搜尋已安裝的 Skill。產生多設備食譜時，在提示中同時寫出所有 Skill：
 
 ```text
-$cooking-with-nn-bs1700 我有兩片冷藏 2 公分厚雞胸，想要濕潤全熟，該怎麼操作？
+我有下列食材，推薦我使用 $cooking-with-rb-2232h 與 $cooking-with-nn-bs1700 做一道三人份的咖哩飯：
+
+1. 冷藏飯兩包，每包 170g
+2. 冷凍花枝丸 4 顆
+3. 鴻禧菇一包
+4. 蒜頭 10 瓣
+5. 咖哩雞肉調理包兩包，每包 200g
+6. 冷藏帶骨雞腿肉一隻 400g
+7. 山藥 200g
+
+特別說明：
+雞腿肉去骨剪小塊後再料理；若不合適，請推薦安全替代做法。
 ```
 
-也可以直接描述 NN-BS1700 料理問題，讓 Codex 依 description 自動選用：
+完整食材範本請見[入門使用者指南](basic-user-guide.md)。建立新設備 Skill、來源裁決與輸出規則請見[進階使用者指南](advanced-user-guide.md)。
 
-```text
-NN-BS1700 要怎麼烤 3 公分厚的冷凍鮭魚？請列出解凍、配件、層位、預熱、時間與完成判定。
-```
-
-若未提供保存狀態、重量或厚度，skill 會列出必要假設或分別提供生鮮、冷藏、冷凍方案。肉、魚、蛋與剩食仍應依中心溫度或完成狀態驗收。
-
-只想用食譜名稱與主要食材取得料理流程，請閱讀[入門使用者指南](basic-user-guide.md)；需要完整指定料理條件、把新食譜回存到 skill，或在實際烹煮後標為實測，請閱讀[進階使用者指南](advanced-user-guide.md)。
+在 CulinaForge repository 內產生食譜卡時，完成的 Markdown、PDF、PNG 一律寫入 `output/recipe-card/`，暫存檔只寫入 `tmp/`；同名檔案依進階指南加入時間戳記，不得覆蓋。
 
 ## 更新
 
-專案安裝執行 `git pull` 即會使用新版。個人安裝則在更新 repository 後，重新複製整個 `cooking-with-nn-bs1700` 目錄，確保 `SKILL.md` 與 `references/` 同步。
+專案安裝執行 `git pull` 即會使用新版。個人安裝則在更新 repository 後重新複製每個完整 Skill 目錄。
 
 ## 官方文件
 

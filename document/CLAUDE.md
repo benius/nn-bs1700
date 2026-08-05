@@ -1,12 +1,6 @@
-# 在 Claude Code 或 Claude Cowork 安裝與使用 NN-BS1700 skill
+# 在 Claude Code 或 Claude Cowork 安裝與使用 CulinaForge Skills
 
-完整 skill 位於 `.agents/skills/cooking-with-nn-bs1700`。Claude Code 使用 `.claude/skills`，Claude Cowork 則上傳包含完整 skill 目錄的 ZIP；兩者共用同一份 `SKILL.md` 與 `references/`。
-
-## Skill metadata
-
-Claude Code 與 Cowork 以 `SKILL.md` 的 YAML frontmatter 辨識 skill；本專案使用跨平台的 `name` 與 `description`。獨立 skill 沒有對應的 `agents/claude.yaml`，因此本專案不建立該檔。
-
-複製目錄或製作 Cowork ZIP 時，`agents/openai.yaml` 可以保留以維持同一份跨平台 skill；Claude 會忽略它。本 skill 也不需要 Claude 專用的叫用控制或預先核准工具，所以不在共用 frontmatter 加入這些專用欄位。
+CulinaForge 的設備 Skills 位於 `.agents/skills/`。每個 Skill 只包含一台設備；Claude 可在同一個食材提示中同時使用多個 Skill，整合設備分工與料理時間線。
 
 ## Claude Code
 
@@ -24,6 +18,7 @@ macOS／Linux：
 ```bash
 mkdir -p .claude/skills
 cp -R .agents/skills/cooking-with-nn-bs1700 .claude/skills/
+cp -R .agents/skills/cooking-with-rb-2232h .claude/skills/
 ```
 
 Windows PowerShell：
@@ -31,82 +26,40 @@ Windows PowerShell：
 ```powershell
 New-Item -ItemType Directory -Force .claude/skills | Out-Null
 Copy-Item -Recurse .agents/skills/cooking-with-nn-bs1700 .claude/skills/
+Copy-Item -Recurse .agents/skills/cooking-with-rb-2232h .claude/skills/
 ```
 
-### 個人安裝
+若希望所有專案都能使用，將目的地改成 `$HOME/.claude/skills`。請擇一安裝範圍，並完整複製 `SKILL.md`、`agents/` 與 `references/`。
 
-若希望所有專案都能使用，改複製到個人目錄。
+### 使用
 
-macOS／Linux：
-
-```bash
-mkdir -p "$HOME/.claude/skills"
-cp -R .agents/skills/cooking-with-nn-bs1700 "$HOME/.claude/skills/"
-```
-
-Windows PowerShell：
-
-```powershell
-New-Item -ItemType Directory -Force "$HOME/.claude/skills" | Out-Null
-Copy-Item -Recurse .agents/skills/cooking-with-nn-bs1700 "$HOME/.claude/skills/"
-```
-
-請擇一安裝範圍。若 Claude Code 啟動時 `.claude/skills` 尚不存在，建立後重新啟動一次；之後 skill 內容的修改通常可即時偵測。
-
-### 確認與使用
-
-在 Claude Code 輸入 `/cooking-with-nn-bs1700` 明確叫用，或以自然語言提出相符問題：
+Claude Code 可用 `/skill-name`，或直接在自然語言中指定多個 Skill：
 
 ```text
-/cooking-with-nn-bs1700 我有 300 g 冷凍蝦仁，想用 NN-BS1700 做到熟而不乾，請給完整操作流程。
+請使用 cooking-with-rb-2232h 與 cooking-with-nn-bs1700。
+我有冷藏飯兩包、冷藏帶骨雞腿肉 400g、咖哩調理包兩包、山藥 200g、鴻禧菇一包與冷凍花枝丸 4 顆，請做三人份咖哩飯。沒有重量的食材依一般情況估算，並說明兩台設備的分工。
 ```
-
-```text
-請使用 cooking-with-nn-bs1700，排查蒸氣變弱與爐內白粉，先說立即處置，再列清潔步驟。
-```
-
-提示中最好包含生鮮／冷藏／冷凍狀態、重量、數量、最厚處厚度、目標口感與手邊配件；資訊不足時，skill 會明列假設與不同狀態的選項。
-
-只想用食譜名稱與主要食材取得料理流程，請閱讀[入門使用者指南](basic-user-guide.md)；需要完整指定料理條件、把新食譜回存到 skill，或在實際烹煮後標為實測，請閱讀[進階使用者指南](advanced-user-guide.md)。
 
 ## Claude Cowork
 
-### 製作上傳檔
-
-從 repository 根目錄製作 ZIP。ZIP 內必須保留 `cooking-with-nn-bs1700/SKILL.md`、`references/` 與其他相對路徑。
-
-macOS／Linux：
+每個設備 Skill 分別製作 ZIP，ZIP 根目錄必須保留該 Skill 的目錄名稱與完整內容。例如：
 
 ```bash
 cd .agents/skills
 zip -r ../../cooking-with-nn-bs1700.zip cooking-with-nn-bs1700
+zip -r ../../cooking-with-rb-2232h.zip cooking-with-rb-2232h
 cd ../..
 ```
 
-Windows PowerShell：
+依序上傳並啟用需要的 Skills。產生食譜時，在提示中寫出每個 Skill 名稱、用餐人數、餐點名稱、所有食材與特別說明。
 
-```powershell
-Compress-Archive -Path .agents/skills/cooking-with-nn-bs1700 -DestinationPath ./cooking-with-nn-bs1700.zip -Force
-```
-
-### 上傳與啟用
-
-1. 在 Claude 開啟 **Customize > Skills**。
-2. 選擇 **+ > Create skill > Upload a skill**。
-3. 上傳 `cooking-with-nn-bs1700.zip`，並確認 skill 已開啟。
-4. 進入 Cowork，以自然語言描述食材、保存狀態、重量、最厚處厚度、目標口感與手邊配件。
-
-範例：
-
-```text
-使用 cooking-with-nn-bs1700：兩片冷藏豬排，每片約 180 g、厚 2 cm，想要焦香全熟。請列出配件、盤面、層位、預熱、分段時間、翻面時機與中心溫度。
-```
+完整提示範本請見[入門使用者指南](basic-user-guide.md)；建立新設備 Skill 與輸出規則請見[進階使用者指南](advanced-user-guide.md)。在可寫入 CulinaForge repository 的工作階段中，完成檔案放到 `output/recipe-card/`，暫存檔只放 `tmp/`。
 
 ## 更新
 
-更新 repository 後，Claude Code 重新複製整個 skill 目錄；Cowork 則重新製作 ZIP 並上傳新版。不要只更新 `SKILL.md` 而漏掉 `references/`。
+更新 repository 後重新複製或打包每個完整 Skill。不要只更新 `SKILL.md` 而漏掉 `references/`。
 
 ## 官方文件
 
 - [Anthropic：Extend Claude with skills](https://code.claude.com/docs/en/skills)
-- [Anthropic：Use skills in Claude（含 Cowork 上傳）](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
+- [Anthropic：Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)

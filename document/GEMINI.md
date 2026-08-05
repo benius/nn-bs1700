@@ -1,33 +1,26 @@
-# 在 Gemini CLI／Google AI agent 安裝與使用 NN-BS1700 skill
+# 在 Gemini CLI／Google AI agent 安裝與使用 CulinaForge Skills
 
-本指南的原生 Agent Skills 安裝方式適用於 Gemini CLI。Gemini CLI 會掃描專案或個人層級的 `.agents/skills`，因此本 repository 可直接使用。Gemini 網頁版、Google AI Studio 或自行建立的 Vertex AI agent 不會因本機存在此目錄就自動載入；那些介面需依各自的系統指令或檔案檢索機制另行整合。
-
-## Skill metadata
-
-Gemini CLI 以 `SKILL.md` frontmatter 的 `name` 與 `description` 辨識、觸發 skill，並在啟用後取用其他內容。它沒有對應的 `agents/gemini.yaml`，因此本專案不建立該檔。`agents/openai.yaml` 是 OpenAI 產品專用的選用設定，Gemini CLI 會忽略它；保留該檔可讓同一份 skill 目錄繼續跨平台共用。
+Gemini CLI 會掃描專案或個人層級的 `.agents/skills`。CulinaForge 已將每台烹調設備放在獨立 Skill 中，產生食譜時可由 Gemini 同時啟用一個或多個 Skill。
 
 ## 安裝
-
-先取得 repository：
 
 ```bash
 git clone https://github.com/benius/nn-bs1700.git
 cd nn-bs1700
 ```
 
-### 專案安裝（建議）
+### 專案安裝
 
-完整 skill 已在 `.agents/skills/cooking-with-nn-bs1700`，從 repository 根目錄啟動 `gemini` 即可，不必複製檔案。
+從 repository 根目錄啟動 Gemini CLI，即可使用 `.agents/skills/` 內的 Skills。
 
 ### 個人安裝
-
-若希望所有 workspace 都能使用，複製到個人層級。Gemini CLI 同時接受 `~/.agents/skills` 與 `~/.gemini/skills`；以下使用可與其他 agent 共用的前者。
 
 macOS／Linux：
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
 cp -R .agents/skills/cooking-with-nn-bs1700 "$HOME/.agents/skills/"
+cp -R .agents/skills/cooking-with-rb-2232h "$HOME/.agents/skills/"
 ```
 
 Windows PowerShell：
@@ -35,47 +28,30 @@ Windows PowerShell：
 ```powershell
 New-Item -ItemType Directory -Force "$HOME/.agents/skills" | Out-Null
 Copy-Item -Recurse .agents/skills/cooking-with-nn-bs1700 "$HOME/.agents/skills/"
+Copy-Item -Recurse .agents/skills/cooking-with-rb-2232h "$HOME/.agents/skills/"
 ```
 
-請擇一安裝範圍，避免 workspace 版覆蓋同名個人版時造成版本混淆。
+請擇一安裝範圍，避免 workspace 版與個人版同名 Skill 混淆。
 
-## 設定與確認
-
-Agent Skills 預設啟用。可先在系統終端確認：
+## 確認與使用
 
 ```bash
 gemini skills list
 gemini skills enable cooking-with-nn-bs1700
+gemini skills enable cooking-with-rb-2232h
 ```
 
-已進入互動工作階段時，使用：
+Gemini 的 Skill 由 agent 啟用；提示中直接寫出所有設備 Skill 與食材內容：
 
 ```text
-/skills list
-/skills reload
+請使用 cooking-with-rb-2232h 與 cooking-with-nn-bs1700，依下列食材設計三人份咖哩飯：冷藏飯兩包各 170g、冷藏帶骨雞腿肉 400g、咖哩雞肉調理包兩包各 200g、山藥 200g、鴻禧菇一包、蒜頭 10 瓣、冷凍花枝丸 4 顆。沒有重量的食材依一般情況估算，並安排兩台設備的同步時間線。
 ```
 
-若組織管理員停用了 Agent Skills，個人設定無法繞過該政策，需聯絡管理員。
-
-## 使用
-
-Gemini 的 `activate_skill` 由 agent 自行呼叫；使用者不直接執行該工具。請在提示中明確寫出 skill 名稱與料理條件，並在 Gemini 要求啟用權限時同意：
-
-```text
-請使用 cooking-with-nn-bs1700。我要加熱一份 350 g 冷藏炒麵，請給模式、功率、時間、攪拌時機、容器與完成判定。
-```
-
-```text
-用 NN-BS1700 處理 3 cm 厚冷凍雞胸；請先判斷解凍路徑，再列配件、層位、蒸烤設定與未達安全溫度時的補時方式。
-```
-
-為了得到可直接操作的答案，盡量提供食材狀態、重量、數量、最厚處厚度、帶骨／填餡情況、目標口感與可用配件。
-
-只想用食譜名稱與主要食材取得料理流程，請閱讀[入門使用者指南](basic-user-guide.md)；需要完整指定料理條件、把新食譜回存到 skill，或在實際烹煮後標為實測，請閱讀[進階使用者指南](advanced-user-guide.md)。
+完整提示範本請見[入門使用者指南](basic-user-guide.md)；新設備 Skill 與輸出規則請見[進階使用者指南](advanced-user-guide.md)。在 CulinaForge repository 內產生的 Markdown、PDF、PNG 放在 `output/recipe-card/`，暫存檔只放 `tmp/`。
 
 ## 更新
 
-專案安裝執行 `git pull` 即可。個人安裝則在更新 repository 後重新複製完整 skill 目錄，讓 `SKILL.md` 與所有 `references/` 保持同一版本。
+專案安裝執行 `git pull`。個人安裝則重新複製每個完整 Skill 目錄。
 
 ## 官方文件
 

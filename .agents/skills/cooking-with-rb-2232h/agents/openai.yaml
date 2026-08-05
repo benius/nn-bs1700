@@ -1,4 +1,4 @@
 interface:
   display_name: "Rinnai RB-2232H IH 智慧感應爐"
-  short_description: "依原廠說明書提供操作、火力、煮飯、鍋具以及故障排除"
-  default_prompt: "使用 $cooking-with-rb-2232h，告訴我如何操作 RB-2232H IH 智慧感應爐。"
+  short_description: "提供 RB-2232H 火力與限制並支援 CulinaForge 多設備食譜協作"
+  default_prompt: "使用 $cooking-with-rb-2232h，依我的食材、份量與特別說明規劃 RB-2232H 步驟；若同時指定其他設備 Skill，請一起整合食譜。"

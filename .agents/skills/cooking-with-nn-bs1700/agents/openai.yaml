@@ -1,4 +1,4 @@
 interface:
   display_name: "Panasonic NN-BS1700 料理指南"
-  short_description: "查詢 NN-BS1700 料理與專案內具名 IH 湯品的操作流程"
-  default_prompt: "使用 $cooking-with-nn-bs1700，告訴我指定食材或具名湯品在目前保存狀態、厚度與可用設備下的料理流程。"
+  short_description: "提供 NN-BS1700 料理設定並支援 CulinaForge 多設備食譜協作"
+  default_prompt: "使用 $cooking-with-nn-bs1700，依我的食材、份量與特別說明規劃 NN-BS1700 步驟；若同時指定其他設備 Skill，請一起整合食譜。"
