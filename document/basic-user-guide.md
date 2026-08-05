@@ -69,4 +69,4 @@ CulinaForge 會依你指定的一個或多個烹調設備 Skill，把現有食�
 
 例如：`番茄海鮮速拌細麵-收乾版-20260804-180559-.png`。
 
-需要依使用手冊建立新設備 Skill，或想進一步控制來源與多設備分工，請閱讀[進階使用者指南](advanced-user-guide.md)。
+需要依設備商使用手冊建立新設備 Skill，請閱讀[烹調設備 Agent Skill 製作指南](create-agent-skill-for-cooking-appliance.md)；想進一步控制來源、食譜結構與多設備分工，請閱讀[進階使用者指南](advanced-user-guide.md)。

@@ -14,7 +14,7 @@ CulinaForge 是一個以烹調設備為核心的 Agent Skills 與專屬食譜專
 | [`cooking-with-nn-bs1700`](.agents/skills/cooking-with-nn-bs1700/SKILL.md) | Panasonic NN-BS1700 微波蒸烘烤箱 | 微波、蒸氣、烘烤、燒烤、自動行程、配件、層位與完成判定 |
 | [`cooking-with-rb-2232h`](.agents/skills/cooking-with-rb-2232h/SKILL.md) | Rinnai RB-2232H IH 智慧感應爐 | 1～9 段火力、Booster、定時器、雙爐限制、鍋具與安全操作 |
 
-新增設備時，為每台設備建立獨立的 `cooking-with-<model>` Skill 目錄。不得把另一台設備的說明書、設定或食譜知識複製進同一個 Skill；多設備分工只在產生食譜時由 agent 整合。
+新增設備時，為每台設備建立獨立的 `cooking-with-<model>` Skill 目錄。不得把另一台設備的說明書、設定或食譜知識複製進同一個 Skill；多設備分工只在產生食譜時由 agent 整合。完整製作流程請見[從烹調設備使用手冊建立專屬 Agent Skill](document/create-agent-skill-for-cooking-appliance.md)。
 
 ## 食譜提示範本
 
@@ -31,7 +31,7 @@ CulinaForge 是一個以烹調設備為核心的 Agent Skills 與專屬食譜專
 
 可以指定一個或多個設備 Skill。食材沒有提供重量時，agent 會依一般份量作合理估算、明列假設，並在設備設定與食品安全需要時採較保守的首輪起點。
 
-完整範例與跨平台寫法請閱讀[入門使用者指南](document/basic-user-guide.md)；建立新設備 Skill、規劃多設備分工與產出檔案的完整規則請閱讀[進階使用者指南](document/advanced-user-guide.md)。
+完整範例與跨平台寫法請閱讀[入門使用者指南](document/basic-user-guide.md)；規劃多設備分工與產出檔案的完整規則請閱讀[進階使用者指南](document/advanced-user-guide.md)。要依設備商使用手冊新增 Skill，請改讀[烹調設備 Agent Skill 製作指南](document/create-agent-skill-for-cooking-appliance.md)。
 
 ## 食譜輸出
 
@@ -45,8 +45,9 @@ CulinaForge 是一個以烹調設備為核心的 Agent Skills 與專屬食譜專
 
 ## 使用文件
 
-| Agent | 安裝、設定與使用說明 |
+| 主題或 Agent | 文件 |
 | --- | --- |
+| 從設備商使用手冊建立 Skill | [烹調設備 Agent Skill 製作指南](document/create-agent-skill-for-cooking-appliance.md) |
 | Codex | [Codex 使用指南](document/CODEX.md) |
 | Claude Code／Claude Cowork | [Claude 使用指南](document/CLAUDE.md) |
 | Gemini CLI／Google AI agent | [Gemini 使用指南](document/GEMINI.md) |

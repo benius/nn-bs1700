@@ -53,7 +53,7 @@ cd ../..
 
 依序上傳並啟用需要的 Skills。產生食譜時，在提示中寫出每個 Skill 名稱、用餐人數、餐點名稱、所有食材與特別說明。
 
-完整提示範本請見[入門使用者指南](basic-user-guide.md)；建立新設備 Skill 與輸出規則請見[進階使用者指南](advanced-user-guide.md)。在可寫入 CulinaForge repository 的工作階段中，完成檔案放到 `output/recipe-card/`，暫存檔只放 `tmp/`。
+完整提示範本請見[入門使用者指南](basic-user-guide.md)；從設備商使用手冊建立新 Skill 請見[烹調設備 Agent Skill 製作指南](create-agent-skill-for-cooking-appliance.md)，多設備分工與輸出規則請見[進階使用者指南](advanced-user-guide.md)。在可寫入 CulinaForge repository 的工作階段中，完成檔案放到 `output/recipe-card/`，暫存檔只放 `tmp/`。
 
 ## 更新
 

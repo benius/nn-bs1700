@@ -37,7 +37,7 @@ Copilot CLI 可用 `/skill-name`；其他介面可在提示中直接寫出 Skill
 請使用 cooking-with-rb-2232h 與 cooking-with-nn-bs1700，依下列食材設計三人份咖哩飯：冷藏飯兩包各 170g、冷藏帶骨雞腿肉 400g、咖哩雞肉調理包兩包各 200g、山藥 200g、鴻禧菇一包、蒜頭 10 瓣、冷凍花枝丸 4 顆。沒有重量的食材依一般情況估算；雞腿去骨剪小塊若不合適，請改用安全做法。
 ```
 
-完整提示範本請見[入門使用者指南](basic-user-guide.md)；建立新設備 Skill 與輸出規則請見[進階使用者指南](advanced-user-guide.md)。在 CulinaForge repository 內產生食譜檔時，Markdown、PDF、PNG 一律放入 `output/recipe-card/`，暫存檔只放 `tmp/`。
+完整提示範本請見[入門使用者指南](basic-user-guide.md)；從設備商使用手冊建立新 Skill 請見[烹調設備 Agent Skill 製作指南](create-agent-skill-for-cooking-appliance.md)，多設備分工與輸出規則請見[進階使用者指南](advanced-user-guide.md)。在 CulinaForge repository 內產生食譜檔時，Markdown、PDF、PNG 一律放入 `output/recipe-card/`，暫存檔只放 `tmp/`。
 
 ## 更新
 

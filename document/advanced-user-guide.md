@@ -4,40 +4,9 @@ CulinaForge 把工作分成兩個階段：先將每台烹調設備的使用手�
 
 ## 1. 由設備手冊建立 Agent Skill
 
-每次只處理一台設備。即使一次提供多份手冊，也要按設備型號分組，為每台設備各建一個 Skill；不得建立同時包含兩台設備的 Skill。
+每次只處理一台設備。即使一次提供多份手冊，也要按設備型號分組，為每台設備各建一個 `cooking-with-<model>` Skill；不得建立同時包含兩台設備的 Skill。
 
-建議目錄名稱採 `cooking-with-<model>`：
-
-```text
-.agents/skills/cooking-with-<model>/
-├── SKILL.md
-├── agents/
-│   └── openai.yaml
-└── references/
-    └── <由該設備手冊整理的參考文件>
-```
-
-### 建立提示範本
-
-```text
-請使用 skill-creator，依下列使用手冊建立一個烹調設備 Agent Skill。
-
-設備品牌與型號：【品牌、完整型號】
-使用手冊：【檔案路徑或附件】
-Skill 名稱：【cooking-with-<model>】
-輸出目錄：@.agents/skills
-
-要求：
-1. 一個 Skill 只包含這一台設備；不要加入其他設備的設定、手冊或食譜。
-2. 將可重複查找的模式、功率或火力、時間上限、配件、容器、層位、鍋具、安全限制、清潔、故障碼與完成條件整理到 references/。
-3. SKILL.md 保留來源邊界、查找流程、操作判斷與最後檢查，不要複製整份手冊。
-4. 手冊沒有提供的料理時間、水量、份量或完成判定，標示為未提供；不可假稱原廠建議。
-5. 讓 Skill 能在 CulinaForge 的食材提示中，僅負責本設備可執行的步驟與限制。
-6. 更新 agents/openai.yaml，並驗證 Skill frontmatter、名稱、相對連結與介面資訊。
-7. 不要把產生的完整食譜存進 Skill；食譜輸出另放 @output/recipe-card。
-```
-
-若手冊同時涵蓋多個相近機型，必須在 Skill 中指定預設機型，並在有差異的欄位明確分開；只有在所有操作條件完全共通時才能共用同一段資料。
+從來源盤點、PDF／OCR 核對、目錄設計、`SKILL.md` 與 `agents/openai.yaml` 撰寫，到 `quick_validate.py` 和四種前向測試的完整流程，統一收錄在[烹調設備 Agent Skill 製作指南](create-agent-skill-for-cooking-appliance.md)。該文件也提供可直接交給 agent 的建立提示，本進階指南不重複維護第二份範本。
 
 ## 2. 以一個或多個設備產生食譜
 
@@ -129,6 +98,8 @@ tmp/
 - 一個 Skill 只有一台設備，沒有混入其他設備設定或完整跨設備食譜。
 - 設備數值可追溯到該 Skill 的 references，手冊未提供的欄位沒有被偽裝成原廠值。
 - `agents/openai.yaml` 與 SKILL.md 的用途一致，且 Skill 驗證工具通過。
+
+完整的來源、單一型號邊界與前向測試檢查表請見[烹調設備 Agent Skill 製作指南](create-agent-skill-for-cooking-appliance.md#完成檢查表)。
 
 產生食譜後確認：
 

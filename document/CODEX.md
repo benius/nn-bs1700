@@ -60,7 +60,7 @@ Copy-Item -Recurse .agents/skills/cooking-with-rb-2232h "$HOME/.agents/skills/"
 雞腿肉去骨剪小塊後再料理；若不合適，請推薦安全替代做法。
 ```
 
-完整食材範本請見[入門使用者指南](basic-user-guide.md)。建立新設備 Skill、來源裁決與輸出規則請見[進階使用者指南](advanced-user-guide.md)。
+完整食材範本請見[入門使用者指南](basic-user-guide.md)。要從設備商使用手冊新增 Skill，請見[烹調設備 Agent Skill 製作指南](create-agent-skill-for-cooking-appliance.md)；來源裁決、多設備分工與輸出規則請見[進階使用者指南](advanced-user-guide.md)。
 
 在 CulinaForge repository 內產生食譜卡時，完成的 Markdown、PDF、PNG 一律寫入 `output/recipe-card/`，暫存檔只寫入 `tmp/`；同名檔案依進階指南加入時間戳記，不得覆蓋。
 
