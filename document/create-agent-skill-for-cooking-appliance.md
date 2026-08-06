@@ -128,19 +128,27 @@ OCR 結果只適合當初稿。功率、溫度、時間、尺寸、錯誤碼與�
 
 ## 初始化 Skill
 
-建立新 Skill 時使用 `skill-creator` 提供的 `init_skill.py`，不要手動拼出不完整的空目錄。從 CulinaForge repository 根目錄執行：
+從 CulinaForge repository 根目錄建立 Skill。初始化方式不綁定特定 Agent、工具名稱或安裝路徑；只要最後產生符合規範的目錄與檔案即可。
 
-```bash
-python3 <skill-creator 根目錄>/scripts/init_skill.py \
-  cooking-with-<model> \
-  --path .agents/skills \
-  --resources references \
-  --interface 'display_name=<品牌與型號料理指南>' \
-  --interface 'short_description=<25～64 字元的簡短說明>' \
-  --interface 'default_prompt=使用 $cooking-with-<model>，告訴我如何操作這台設備。'
+先建立以下基本結構：
+
+```text
+.agents/skills/cooking-with-<model>/
+├── SKILL.md
+└── references/
 ```
 
-如果目前的 agent 能直接使用 `skill-creator`，也可以讓 agent 執行初始化；輸出位置仍指定為 `@.agents/skills`。初始化後刪除未使用的範例或空白資源，只保留真正需要的內容。
+初始化時遵循以下原則：
+
+1. Skill 名稱使用 `cooking-with-<model>`，並將 `<model>` 正規化為小寫英數與連字號。
+2. 輸出位置固定為 `@.agents/skills/cooking-with-<model>`。
+3. `SKILL.md` 必須包含合法的 YAML frontmatter，至少定義 `name` 與 `description`；`name` 必須和目錄名稱相同。
+4. `references/` 只放根據使用手冊整理、且實際會被 Skill 引用的資料。
+5. 若使用中的 Agent 或開發環境提供 Skill 建立器、範本或初始化指令，可以用它產生上述結構；若沒有，就依結構直接建立。
+6. 目標目錄若已存在，先檢查現有內容並採取更新方式，不可直接覆寫。
+7. 初始化後移除未使用的範例與空白資源，也不要額外建立 README、安裝說明或變更紀錄。
+
+供 OpenAI Agent 介面使用的 `agents/openai.yaml` 屬於額外介面設定，依[建立 agents/openai.yaml](#建立-agentsopenaiyaml)一節處理；它不是其他 Agent 使用這個 Skill 的必要條件。
 
 ## 撰寫 references
 
@@ -208,15 +216,7 @@ interface:
 
 所有字串都加引號。`default_prompt` 要明確包含 `$skill-name`。沒有現成圖示、品牌色或工具依賴時不要自行發明欄位。
 
-初始化後若 `SKILL.md` 用途有變，使用 `generate_openai_yaml.py` 重新產生，不要讓介面說明和 Skill 實際能力不同：
-
-```bash
-python3 <skill-creator 根目錄>/scripts/generate_openai_yaml.py \
-  .agents/skills/cooking-with-<model> \
-  --interface 'display_name=<品牌與型號料理指南>' \
-  --interface 'short_description=<25～64 字元的簡短說明>' \
-  --interface 'default_prompt=使用 $cooking-with-<model>，告訴我如何操作這台設備。'
-```
+若使用中的環境提供介面設定產生器，可以用它建立或更新 `agents/openai.yaml`；若沒有，就依上述欄位直接編輯。每次調整 `SKILL.md` 的用途後，都要重新核對 `display_name`、`short_description` 與 `default_prompt`，避免介面說明和 Skill 實際能力不同。
 
 ## 接上 CulinaForge 食譜流程
 
@@ -236,14 +236,15 @@ python3 <skill-creator 根目錄>/scripts/generate_openai_yaml.py \
 
 ### 1. 執行結構驗證
 
-使用 `skill-creator` 的驗證工具：
+若使用中的 Agent 或開發環境提供 Skill 驗證工具，使用該工具檢查 `@.agents/skills/cooking-with-<model>`；若沒有，至少手動確認下列項目：
 
-```bash
-python3 <skill-creator 根目錄>/scripts/quick_validate.py \
-  .agents/skills/cooking-with-<model>
-```
+- `SKILL.md` 存在，YAML frontmatter 可以正確解析。
+- `name` 和目錄名稱完全相同，並符合小寫英數與連字號格式。
+- `description` 清楚說明用途與觸發時機。
+- `SKILL.md` 引用的相對路徑都存在，且沒有連到其他設備的資料。
+- 若有 `agents/openai.yaml`，其 YAML 格式、引號與 `$skill-name` 都正確。
 
-修正所有 frontmatter、名稱與目錄錯誤，直到驗證通過。
+修正所有 frontmatter、名稱、目錄與連結錯誤，直到自動驗證通過或手動檢查沒有遺漏。
 
 ### 2. 檢查內容一致性
 
@@ -275,7 +276,7 @@ python3 <skill-creator 根目錄>/scripts/quick_validate.py \
 把下列範本交給能讀寫 CulinaForge repository 的 agent：
 
 ```text
-請使用 $skill-creator，依設備商提供的使用手冊建立一個 CulinaForge 烹調設備 Agent Skill。
+請依設備商提供的使用手冊，建立一個 CulinaForge 烹調設備 Agent Skill。
 
 設備品牌與完整型號：【請填寫】
 使用手冊：【附件或檔案路徑】
@@ -286,13 +287,13 @@ Skill 名稱：【cooking-with-<model>】
 請依下列規則執行：
 1. 一個 Skill 只包含這一台設備。若手冊同時涵蓋其他型號，只保留目標型號欄位與確定適用的共通規則；不要保留其他型號的規格、操作、安裝尺寸或故障處置。
 2. 先列出來源文件、版本、頁碼範圍與使用限制，再擷取文字並回看原頁面核對數字、表格、圖示、腳註與安全警告。
-3. 使用 skill-creator 的 init_skill.py 初始化 `@.agents/skills/<skill-name>`，只建立需要的 references；不要建立 Skill 內 README、安裝指南或變更記錄。
+3. 使用目前環境可用的 Skill 初始化功能；若沒有，就依標準結構建立 `@.agents/skills/<skill-name>`。只建立需要的 references，不要建立 Skill 內 README、安裝指南或變更記錄。
 4. 將詳細的模式、功率或火力、溫度、時間上限、配件、容器、層位、鍋具、安全、清潔、錯誤碼、規格與安裝資料整理到 references/。每個檔案標明來源版本與頁碼。
 5. SKILL.md frontmatter 只放 name 與 description。description 同時寫出 Skill 能力與觸發情境；正文使用指令式語氣，包含來源邊界、查找流程、料理判斷、多設備協作、回答格式與最後檢查。
 6. 手冊沒提供的食譜時間、水量、切法、份量或完成判定，清楚標示為「手冊未提供」；在 CulinaForge 產生食譜時可以另作「食譜設計／合理估算」，但不得歸因於手冊。
 7. 更新 agents/openai.yaml 的 display_name、25～64 字元 short_description 與明確包含 `$<skill-name>` 的 default_prompt；沒有提供圖示或品牌色時不要自行新增。
 8. 完整跨設備食譜不要存進 Skill。完成食譜放 @output/recipe-card；所有 OCR、渲染與測試暫存檔放 @tmp。
-9. 執行 quick_validate.py，檢查相對連結，搜尋並移除其他設備／型號專屬內容，再用基本操作、安全故障、單設備食譜與多設備食譜做前向測試。
+9. 使用目前環境可用的 Skill 驗證工具；若沒有，就依本文檢查表手動驗證。另需檢查相對連結，搜尋並移除其他設備／型號專屬內容，再用基本操作、安全故障、單設備食譜與多設備食譜做前向測試。
 
 完成後回報：
 - 新 Skill 路徑與目錄結構。
@@ -313,7 +314,7 @@ Skill 名稱：【cooking-with-<model>】
 - [ ] `agents/openai.yaml` 的三個介面欄位與 Skill 能力一致。
 - [ ] 手冊資料與食譜設計估算清楚分開。
 - [ ] 完整食譜只輸出到 `output/recipe-card/`，暫存檔只放 `tmp/`。
-- [ ] `quick_validate.py`、相對連結與跨型號搜尋全部通過。
+- [ ] Skill 結構驗證、相對連結與跨型號搜尋全部通過。
 - [ ] 基本操作、安全故障、單設備與多設備四種測試均符合預期。
 
 可以參考專案內現有的 [Panasonic NN-BS1700 Skill](../.agents/skills/cooking-with-nn-bs1700/SKILL.md) 與 [Rinnai RB-2232H Skill](../.agents/skills/cooking-with-rb-2232h/SKILL.md)，觀察不同設備如何拆分來源與維持單一型號邊界。
