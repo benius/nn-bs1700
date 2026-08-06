@@ -2,7 +2,8 @@
   "recipe_name": "嫩肩牛肉花枝丸雙薯咖哩飯",
   "outputs": {
     "png": "/Users/masonhsieh/Documents/projects/confludata/CulinaForge/output/recipe-card/嫩肩牛肉花枝丸雙薯咖哩飯.png",
-    "pdf": "/Users/masonhsieh/Documents/projects/confludata/CulinaForge/output/recipe-card/嫩肩牛肉花枝丸雙薯咖哩飯.pdf"
+    "pdf": "/Users/masonhsieh/Documents/projects/confludata/CulinaForge/output/recipe-card/嫩肩牛肉花枝丸雙薯咖哩飯.pdf",
+    "markdown": "/Users/masonhsieh/Documents/projects/confludata/CulinaForge/output/recipe-card/嫩肩牛肉花枝丸雙薯咖哩飯.md"
   },
   "page": {
     "format": "A4 portrait",
@@ -19,6 +20,7 @@
     "usage": "visual only; all recipe text is deterministic"
   },
   "content_notes": [
+    "Beef is refrigerated with rice wine, soy sauce, ginger, garlic, scallion white, and white pepper for 15 minutes, then drained and dried before searing.",
     "RB-2232H fire levels are manual reference categories; recipe minutes and water are estimates.",
     "NN-BS1700 rice reheating uses 600 W with a 2-minute first check per 170 g pack.",
     "Package directions take precedence for commercial curry roux and frozen squid balls."
