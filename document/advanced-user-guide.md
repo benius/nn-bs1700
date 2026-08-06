@@ -6,7 +6,7 @@ CulinaForge 把工作分成兩個階段：先將每台烹調設備的使用手�
 
 每次只處理一台設備。即使一次提供多份手冊，也要按設備型號分組，為每台設備各建一個 `cooking-with-<model>` Skill；不得建立同時包含兩台設備的 Skill。
 
-從來源盤點、PDF／OCR 核對、目錄設計、`SKILL.md` 與 `agents/openai.yaml` 撰寫，到 `quick_validate.py` 和四種前向測試的完整流程，統一收錄在[烹調設備 Agent Skill 製作指南](create-agent-skill-for-cooking-appliance.md)。該文件也提供可直接交給 agent 的建立提示，本進階指南不重複維護第二份範本。
+如何準備與附加使用手冊、填寫建立提示、依 Codex、Claude Code、Gemini 或 GitHub Copilot 補充平台提醒，以及驗收 Skill 的完整流程，統一收錄在[烹調設備 Agent Skill 製作指南](create-agent-skill-for-cooking-appliance.md)。該文件提供可直接交給 agent 的建立與修正提示，本進階指南不重複維護第二份範本。
 
 ## 2. 以一個或多個設備產生食譜
 
